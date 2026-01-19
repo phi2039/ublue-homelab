@@ -17,6 +17,7 @@ wget $INCUS_UI_URL
 INCUS_PKG=$(basename "$INCUS_UI_URL")
 dpkg -x $INCUS_PKG ./incus-ui/
 # rsync -vaH incus-ui/opt/incus/. /var/opt/incus/ # /opt is symlinked to /var/opt
+mkdir -p /usr/lib/opt/incus/
 mv incus-ui/opt/incus/ui /usr/lib/opt/incus/ui
 rm -rf $INCUS_PKG incus-ui/
 
