@@ -4,6 +4,11 @@ set -ouex pipefail
 
 # Initialize and start Incus
 echo "Initializing Incus..."
+
+# Update subuid/subgid
+bash -c 'echo "root:1000000:1000000000" >> /etc/subuid'
+bash -c 'echo "root:1000000:1000000000" >> /etc/subgid'
+
 incus admin init --preseed /etc/incus/preseed.yaml
 
 # Allow Incus WebUI through firewall

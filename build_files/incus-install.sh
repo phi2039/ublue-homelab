@@ -7,19 +7,9 @@ INCUS_UI_URL=https://pkgs.zabbly.com/incus/stable/pool/main/i/incus/incus-ui-can
 
 # Incus preseed configuration for automatic initialization
 echo "Installing base Incus application..."
-chmod 644 /etc/incus/preseed.yaml
 
-# Configure sysctl settings for Incus
-chmod 644 /etc/sysctl.d/99-incus.conf
-
-#Install Incus and dependencies
+# Install Incus and dependencies
 dnf5 install -y incus incus-tools lxc dpkg
-
-# Update subuid/subgid
-bash -c 'echo "root:1000000:1000000000" >> /etc/subuid'
-bash -c 'echo "root:1000000:1000000000" >> /etc/subgid'
-cat /etc/subuid
-cat /etc/subgid
 
 # Install WebUI
 echo "Installing Incus WebUI..."
@@ -27,7 +17,7 @@ wget $INCUS_UI_URL
 INCUS_PKG=$(basename "$INCUS_UI_URL")
 dpkg -x $INCUS_PKG ./incus-ui/
 # rsync -vaH incus-ui/opt/incus/. /var/opt/incus/ # /opt is symlinked to /var/opt
-mv incus-ui/opt/incus/ui /var/opt/incus/ # /opt is symlinked to /var/opt
+mv incus-ui/opt/incus/ui /usr/lib/opt/incus/ui
 rm -rf $INCUS_PKG incus-ui/
 
 systemctl enable incus.service
