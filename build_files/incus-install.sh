@@ -13,7 +13,7 @@ chmod 644 /etc/incus/preseed.yaml
 chmod 644 /etc/sysctl.d/99-incus.conf
 
 #Install Incus and dependencies
-dnf5 install -y incus incus-tools lxc qemu-kvm dpkg
+dnf5 install -y incus incus-tools lxc dpkg
 
 # Update subuid/subgid
 bash -c 'echo "root:1000000:1000000000" >> /etc/subuid'
@@ -24,11 +24,6 @@ echo "Installing Incus WebUI..."
 wget $INCUS_UI_URL
 dpkg -x $(basename "$INCUS_UI_URL") ./incus-ui/
 rsync -vaH incus-ui/opt/incus/. /opt/incus/
-
-# Allow Incus WebUI through firewall
-echo "Configuring firewall for Incus WebUI..."
-firewall-cmd --permanent --add-port=8443/tcp
-firewall-cmd --reload
 
 systemctl enable incus.service
 systemctl enable incus-workaround.service

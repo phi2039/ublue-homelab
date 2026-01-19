@@ -6,6 +6,11 @@ set -ouex pipefail
 echo "Initializing Incus..."
 incus admin init --preseed /etc/incus/preseed.yaml
 
+# Allow Incus WebUI through firewall
+echo "Configuring firewall for Incus WebUI..."
+firewall-cmd --permanent --add-port=8443/tcp
+firewall-cmd --reload
+
 # Apply changes and restart Incus
 echo "Restarting Incus service..."
 systemctl daemon-reload
