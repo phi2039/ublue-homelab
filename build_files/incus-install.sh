@@ -23,7 +23,8 @@ bash -c 'echo "root:1000000:1000000000" >> /etc/subgid'
 echo "Installing Incus WebUI..."
 wget $INCUS_UI_URL
 dpkg -x $(basename "$INCUS_UI_URL") ./incus-ui/
-rsync -vaH incus-ui/opt/incus/. /opt/incus/
+rsync -vaH incus-ui/opt/incus/. /var/opt/incus/ # /opt is symlinked to /var/opt
 
 systemctl enable incus.service
 systemctl enable incus-workaround.service
+systemctl enable incus-init.service
