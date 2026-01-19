@@ -18,12 +18,17 @@ dnf5 install -y incus incus-tools lxc dpkg
 # Update subuid/subgid
 bash -c 'echo "root:1000000:1000000000" >> /etc/subuid'
 bash -c 'echo "root:1000000:1000000000" >> /etc/subgid'
+cat /etc/subuid
+cat /etc/subgid
 
 # Install WebUI
 echo "Installing Incus WebUI..."
 wget $INCUS_UI_URL
-dpkg -x $(basename "$INCUS_UI_URL") ./incus-ui/
-rsync -vaH incus-ui/opt/incus/. /var/opt/incus/ # /opt is symlinked to /var/opt
+INCUS_PKG=$(basename "$INCUS_UI_URL")
+dpkg -x $INCUS_PKG ./incus-ui/
+# rsync -vaH incus-ui/opt/incus/. /var/opt/incus/ # /opt is symlinked to /var/opt
+mv incus-ui/opt/incus/ui /var/opt/incus/ # /opt is symlinked to /var/opt
+rm -rf $INCUS_PKG incus-ui/
 
 systemctl enable incus.service
 systemctl enable incus-workaround.service
