@@ -22,5 +22,5 @@ mv incus-ui/opt/incus/ui /usr/lib/opt/incus/ui
 rm -rf $INCUS_PKG incus-ui/
 
 systemctl enable incus.service
-systemctl enable incus-workaround.service
+systemctl disable incus-workaround.service # Likely redundant
 systemctl enable incus-init.service

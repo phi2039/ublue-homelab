@@ -10,3 +10,4 @@ dnf5 install --setopt=install_weak_deps=False -y "${TARGET_PACKAGES[@]}"
 
 systemctl enable cockpit.service
 systemctl enable podman.socket
+systemctl disable zincati.service
