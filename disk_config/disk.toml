@@ -1,8 +1,0 @@
-[[customizations.filesystem]]
-mountpoint = "/"
-minsize = "20 GiB"
-
-[[customizations.user]]
-name = "chris"
-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/wjzufkGyBkDTqnmrigrS6wmwlLyi0Vfn0nZZkNp48 chris@bluefin"
-groups = ["wheel"] # Grants sudo access
